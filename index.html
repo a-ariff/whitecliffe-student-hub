@@ -3,162 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 Whitecliffe Student Hub - Your Ultimate Study Companion</title>
-    <meta name="description" content="The ultimate homepage for Whitecliffe College students - assignment tracking, study tools, and academic resources all in one place.">
+    <title>🎓 Whitecliffe Student Hub</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 </head>
 <body>
-    <!-- Navigation Header -->
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-brand">
-                <h1>🎓 Whitecliffe Student Hub</h1>
-                <p id="currentTime" class="current-time">Loading...</p>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-header">
+                    <h1 class="hero-title">🎓 Welcome to Your Whitecliffe Student Hub</h1>
+                    <div class="hero-meta">
+                        <div id="currentTime" class="current-time">Thursday, September 11, 2025 • 11:00 AM NZST</div>
+                    </div>
+                </div>
+                
+                <div class="daily-motivation">
+                    <div class="motivation-quote">
+                        <span id="quoteText" class="quote-text">The expert in anything was once a beginner. Keep going! 🚀</span>
+                    </div>
+                </div>
+
+                <!-- Critical Alert -->
+                <div id="criticalAlert" class="critical-alert">
+                    <div class="alert-content">
+                        <div class="alert-icon">⚠️</div>
+                        <div class="alert-details">
+                            <h2 class="alert-title">URGENT DEADLINE APPROACHING!</h2>
+                            <p class="alert-assignment">Business Case Report - IT8102 Technology Management</p>
+                            <div class="countdown">
+                                <div class="countdown-item">
+                                    <span id="countdownDays" class="countdown-number">17</span>
+                                    <span class="countdown-label">Days</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span id="countdownHours" class="countdown-number">13</span>
+                                    <span class="countdown-label">Hours</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span id="countdownMinutes" class="countdown-number">00</span>
+                                    <span class="countdown-label">Minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="nav-actions">
-                <button id="themeToggle" class="theme-toggle" title="Switch to Dark Mode">🌙</button>
+        </div>
+    </section>
+
+    <!-- Quick Dashboard -->
+    <section class="quick-dashboard">
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- Stats Panel -->
+                <div class="stats-panel">
+                    <h3 class="panel-title">📊 Quick Stats</h3>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Assignments</span>
+                            <span id="totalAssignments" class="stat-value">5</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Completed</span>
+                            <span id="completedAssignments" class="stat-value">1</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Average Progress</span>
+                            <span id="averageProgress" class="stat-value">24%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Study Streak</span>
+                            <span id="studyStreak" class="stat-value">3 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Widget -->
+                <div class="weather-widget">
+                    <h3 class="panel-title">🌤️ Wellington Weather</h3>
+                    <div class="weather-info">
+                        <div class="weather-main">
+                            <div class="weather-temp">16°C</div>
+                            <div class="weather-desc">Partly Cloudy</div>
+                        </div>
+                        <div class="weather-details">
+                            <span>💨 15 km/h winds</span>
+                            <span>💧 60% humidity</span>
+                        </div>
+                        <div class="campus-tip">Perfect for campus studying! 📚</div>
+                    </div>
+                </div>
+
+                <!-- Pomodoro Timer -->
+                <div class="pomodoro-timer">
+                    <h3 class="panel-title">🍅 Study Timer</h3>
+                    <div class="timer-display">
+                        <div id="timerTime" class="timer-time">25:00</div>
+                        <div id="timerSession" class="timer-session">Focus Session</div>
+                    </div>
+                    <div class="timer-controls">
+                        <button id="timerStart" class="btn btn--primary btn--sm">Start</button>
+                        <button id="timerPause" class="btn btn--secondary btn--sm">Pause</button>
+                        <button id="timerReset" class="btn btn--outline btn--sm">Reset</button>
+                    </div>
+                    <div id="timerStats" class="timer-stats">
+                        Today: <strong>2h 15m</strong>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </section>
 
     <!-- Main Dashboard -->
-    <main class="main">
-        <!-- Hero Section with Daily Quote -->
-        <section class="hero-section">
-            <div class="hero-content">
-                <h2>Your Academic Success Dashboard</h2>
-                <div class="daily-quote">
-                    <p id="quoteText" class="quote-text">Loading your daily inspiration...</p>
+    <section class="main-dashboard">
+        <div class="container">
+            <div class="dashboard-layout">
+                <!-- Assignments Section -->
+                <div class="assignments-section">
+                    <h2 class="section-title">📚 Your Assignments</h2>
+                    <div id="assignmentsGrid" class="assignments-grid">
+                        <!-- Assignment cards will be rendered here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="dashboard-sidebar">
+                    <!-- Quick Links -->
+                    <div class="sidebar-panel">
+                        <h3 class="panel-title">🔗 Quick Links</h3>
+                        <div id="quickLinks" class="quick-links">
+                            <!-- Quick links will be rendered here -->
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events -->
+                    <div class="sidebar-panel">
+                        <h3 class="panel-title">📅 Upcoming Events</h3>
+                        <div id="eventsList" class="events-list">
+                            <!-- Events will be rendered here -->
+                        </div>
+                    </div>
+
+                    <!-- Study Tips -->
+                    <div class="sidebar-panel">
+                        <h3 class="panel-title">💡 Study Tips</h3>
+                        <div id="studyTips" class="study-tips">
+                            <!-- Study tips will be rendered here -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Critical Assignment Countdown -->
-        <section class="countdown-section">
-            <div class="countdown-container">
-                <h3>🔥 Critical Assignment Countdown</h3>
-                <div class="countdown-display">
-                    <div class="countdown-item">
-                        <span id="days" class="countdown-number">0</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span id="hours" class="countdown-number">00</span>
-                        <span class="countdown-label">Hours</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span id="minutes" class="countdown-number">00</span>
-                        <span class="countdown-label">Minutes</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dashboard Grid -->
-        <div class="dashboard-grid">
-            <!-- Assignments Section -->
-            <section class="assignments-section">
-                <div class="section-header">
-                    <h3>📚 Assignment Tracker</h3>
-                    <div class="section-stats">
-                        <span>Total: <span id="totalAssignments">0</span></span>
-                        <span>Completed: <span id="completedAssignments">0</span></span>
-                        <span>Average: <span id="averageProgress">0%</span></span>
-                    </div>
-                </div>
-                <div id="assignmentsGrid" class="assignments-grid">
-                    <!-- Dynamic content loaded by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Pomodoro Timer -->
-            <section class="timer-section">
-                <div class="section-header">
-                    <h3>🍅 Pomodoro Timer</h3>
-                    <p id="timerSession" class="timer-session">Focus Session</p>
-                </div>
-                <div class="timer-display">
-                    <div id="timerDisplay" class="timer-time">25:00</div>
-                </div>
-                <div class="timer-controls">
-                    <button id="startTimer" class="btn btn-primary">Start</button>
-                    <button id="pauseTimer" class="btn btn-secondary">Pause</button>
-                    <button id="resetTimer" class="btn btn-outline">Reset</button>
-                </div>
-                <div class="timer-stats">
-                    <p>Study Streak: <span id="studyStreak">0 days</span></p>
-                    <p>Today: <span id="dailyStudyTime">0h 0m</span></p>
-                </div>
-            </section>
-
-            <!-- Quick Links -->
-            <section class="quick-links-section">
-                <div class="section-header">
-                    <h3>🔗 Quick Access</h3>
-                </div>
-                <div id="quickLinks" class="quick-links">
-                    <!-- Dynamic content loaded by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Upcoming Events -->
-            <section class="events-section">
-                <div class="section-header">
-                    <h3>📅 Upcoming Events</h3>
-                </div>
-                <div id="eventsList" class="events-list">
-                    <!-- Dynamic content loaded by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Study Tips -->
-            <section class="tips-section">
-                <div class="section-header">
-                    <h3>💡 Study Tips</h3>
-                </div>
-                <div id="studyTips" class="study-tips">
-                    <!-- Dynamic content loaded by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Action Buttons -->
-            <section class="actions-section">
-                <div class="section-header">
-                    <h3>⚡ Quick Actions</h3>
-                </div>
-                <div class="action-buttons">
-                    <button id="exportData" class="btn btn-outline">📤 Export Progress</button>
-                    <button id="printSchedule" class="btn btn-outline">🖨️ Print Schedule</button>
-                    <button id="resetProgress" class="btn btn-danger">🔄 Reset Progress</button>
-                </div>
-            </section>
         </div>
-    </main>
+    </section>
+
+    <!-- Actions Section -->
+    <section class="actions-section">
+        <div class="container">
+            <div class="action-buttons">
+                <button id="exportBtn" class="btn btn--outline">📤 Export Progress</button>
+                <button id="printBtn" class="btn btn--outline">🖨️ Print Schedule</button>
+                <button id="syncCanvasBtn" class="btn btn--primary">🔄 Sync from Canvas</button>
+                <button id="resetBtn" class="btn btn--secondary">🔄 Reset Progress</button>
+            </div>
+        </div>
+    </section>
 
     <!-- Assignment Details Modal -->
     <div id="assignmentModal" class="modal hidden">
-        <div id="modalOverlay" class="modal-overlay"></div>
+        <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">Assignment Details</h3>
+                <h2 id="modalTitle" class="modal-title">Assignment Details</h2>
                 <button id="modalClose" class="modal-close">×</button>
             </div>
             <div id="modalBody" class="modal-body">
-                <!-- Dynamic content loaded by JavaScript -->
+                <!-- Modal content will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>© 2025 Whitecliffe Student Hub. Made with ❤️ for Whitecliffe students.</p>
-            <p>Built with HTML5, CSS3, and JavaScript • Privacy-first • No tracking</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript Application -->
     <script src="app.js"></script>
 </body>
 </html>
