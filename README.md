@@ -1,8 +1,9 @@
 # 🎓 Whitecliffe Student Hub
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-username.github.io/whitecliffe-student-hub)
-[![GitHub Stars](https://img.shields.io/github/stars/your-username/whitecliffe-student-hub)](https://github.com/your-username/whitecliffe-student-hub/stargazers)
-[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red)](https://github.com/your-username/whitecliffe-student-hub)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://a-ariff.github.io/whitecliffe-student-hub)
+[![GitHub Stars](https://img.shields.io/github/stars/a-ariff/whitecliffe-student-hub)](https://github.com/a-ariff/whitecliffe-student-hub/stargazers)
+[![Deployment Status](https://img.shields.io/github/actions/workflow/status/a-ariff/whitecliffe-student-hub/deploy.yml?branch=main&label=deployment)](https://github.com/a-ariff/whitecliffe-student-hub/actions)
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red)](https://github.com/a-ariff/whitecliffe-student-hub)
 
 **The ultimate homepage for Whitecliffe College students** - because we all need better organization and motivation! 🚀
 
@@ -40,9 +41,26 @@
 - 🔗 **Quick access** to Canvas, email, library resources
 - 🌤️ **Wellington weather widget** for campus planning
 
+## 🚀 Quick Deployment
+
+This app is designed for easy deployment with **GitHub Pages** (recommended):
+
+### GitHub Pages Deployment
+1. **Fork this repository** to your GitHub account
+2. **Enable GitHub Pages** in repository Settings → Pages → Source: "GitHub Actions"
+3. **Automatic deployment** happens on every push to main branch
+4. **Access your site** at `https://your-username.github.io/whitecliffe-student-hub`
+
+### Alternative Deployment Options
+- **Netlify**: Connect GitHub repo for automatic deployments
+- **Vercel**: Import repository for instant deployment  
+- **Cloudflare Pages**: Connect Git for global edge deployment
+
+📖 **[Complete Deployment Guide](DEPLOYMENT.md)** - Detailed instructions for all deployment methods
+
 ## 🚀 Live Demo
 
-**[Try it now!](https://your-username.github.io/whitecliffe-student-hub)**
+**[Try it now!](https://a-ariff.github.io/whitecliffe-student-hub)**
 
 Perfect for:
 - 🏠 **Setting as your browser homepage**
