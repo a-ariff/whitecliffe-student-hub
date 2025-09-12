@@ -259,8 +259,8 @@ function isStaticAsset(request, url) {
   }
   
   // External static resources (fonts, CDNs)
-  return url.hostname.includes('fonts.googleapis.com') ||
-         url.hostname.includes('cdnjs.cloudflare.com');
+  return (url.hostname === 'fonts.googleapis.com') ||
+         (url.hostname === 'cdnjs.cloudflare.com');
 }
 
 function isImage(request) {
@@ -275,7 +275,7 @@ function isDynamicContent(url) {
 function isExternalResource(url) {
   return url.origin !== self.location.origin &&
          !isDynamicContent(url) &&
-         !url.hostname.includes('fonts.googleapis.com');
+         url.hostname !== 'fonts.googleapis.com';
 }
 
 async function getOfflinePage() {
