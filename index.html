@@ -3,7 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Whitecliffe Student Hub - Your personalized dashboard for managing assignments, tracking progress, and staying organized with your studies.">
+    <meta name="keywords" content="Whitecliffe, student hub, assignments, study planner, student dashboard, education">
+    <meta name="author" content="Whitecliffe Student Hub">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="🎓 Whitecliffe Student Hub">
+    <meta property="og:description" content="Your personalized dashboard for managing assignments, tracking progress, and staying organized with your studies.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://a-ariff.github.io/whitecliffe-student-hub/">
+    <meta property="og:image" content="https://a-ariff.github.io/whitecliffe-student-hub/icon-192.png">
+    <meta property="og:site_name" content="Whitecliffe Student Hub">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="🎓 Whitecliffe Student Hub">
+    <meta name="twitter:description" content="Your personalized dashboard for managing assignments, tracking progress, and staying organized with your studies.">
+    <meta name="twitter:image" content="https://a-ariff.github.io/whitecliffe-student-hub/icon-192.png">
+    
+    <!-- Theme and Mobile Optimization -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Student Hub">
+    
+    <!-- Accessibility -->
+    <meta name="color-scheme" content="light dark">
+    
     <title>🎓 Whitecliffe Student Hub</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.webmanifest">
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,18 +54,17 @@
                 <div class="hero-header">
                     <h1 class="hero-title">🎓 Welcome to Your Whitecliffe Student Hub</h1>
                     <div class="hero-meta">
-                        <div id="currentTime" class="current-time">Thursday, September 11, 2025 • 11:00 AM NZST</div>
+                        <div class="current-time" id="currentTime">Thursday, September 11, 2025 • 11:00 AM NZST</div>
                     </div>
                 </div>
                 
                 <div class="daily-motivation">
                     <div class="motivation-quote">
-                        <span id="quoteText" class="quote-text">The expert in anything was once a beginner. Keep going! 🚀</span>
+                        <span class="quote-text" id="quoteText">The expert in anything was once a beginner. Keep going! 🚀</span>
                     </div>
                 </div>
-
                 <!-- Critical Alert -->
-                <div id="criticalAlert" class="critical-alert">
+                <div class="critical-alert" id="criticalAlert">
                     <div class="alert-content">
                         <div class="alert-icon">⚠️</div>
                         <div class="alert-details">
@@ -33,15 +72,15 @@
                             <p class="alert-assignment">Business Case Report - IT8102 Technology Management</p>
                             <div class="countdown">
                                 <div class="countdown-item">
-                                    <span id="countdownDays" class="countdown-number">17</span>
+                                    <span class="countdown-number" id="countdownDays">17</span>
                                     <span class="countdown-label">Days</span>
                                 </div>
                                 <div class="countdown-item">
-                                    <span id="countdownHours" class="countdown-number">13</span>
+                                    <span class="countdown-number" id="countdownHours">13</span>
                                     <span class="countdown-label">Hours</span>
                                 </div>
                                 <div class="countdown-item">
-                                    <span id="countdownMinutes" class="countdown-number">00</span>
+                                    <span class="countdown-number" id="countdownMinutes">00</span>
                                     <span class="countdown-label">Minutes</span>
                                 </div>
                             </div>
@@ -51,7 +90,7 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Quick Dashboard -->
     <section class="quick-dashboard">
         <div class="container">
@@ -62,23 +101,23 @@
                     <div class="stats-list">
                         <div class="stat-item">
                             <span class="stat-label">Total Assignments</span>
-                            <span id="totalAssignments" class="stat-value">5</span>
+                            <span class="stat-value" id="totalAssignments">5</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Completed</span>
-                            <span id="completedAssignments" class="stat-value">1</span>
+                            <span class="stat-value" id="completedAssignments">1</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Average Progress</span>
-                            <span id="averageProgress" class="stat-value">24%</span>
+                            <span class="stat-value" id="averageProgress">24%</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Study Streak</span>
-                            <span id="studyStreak" class="stat-value">3 days</span>
+                            <span class="stat-value" id="studyStreak">3 days</span>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Weather Widget -->
                 <div class="weather-widget">
                     <h3 class="panel-title">🌤️ Wellington Weather</h3>
@@ -88,33 +127,33 @@
                             <div class="weather-desc">Partly Cloudy</div>
                         </div>
                         <div class="weather-details">
-                            <span>💨 15 km/h winds</span>
-                            <span>💧 60% humidity</span>
+                            💨 15 km/h winds<br>
+                            💧 60% humidity
                         </div>
                         <div class="campus-tip">Perfect for campus studying! 📚</div>
                     </div>
                 </div>
-
+                
                 <!-- Pomodoro Timer -->
                 <div class="pomodoro-timer">
                     <h3 class="panel-title">🍅 Study Timer</h3>
                     <div class="timer-display">
-                        <div id="timerTime" class="timer-time">25:00</div>
-                        <div id="timerSession" class="timer-session">Focus Session</div>
+                        <div class="timer-time" id="timerTime">25:00</div>
+                        <div class="timer-session" id="timerSession">Focus Session</div>
                     </div>
                     <div class="timer-controls">
-                        <button id="timerStart" class="btn btn--primary btn--sm">Start</button>
-                        <button id="timerPause" class="btn btn--secondary btn--sm">Pause</button>
-                        <button id="timerReset" class="btn btn--outline btn--sm">Reset</button>
+                        <button class="btn btn--primary btn--sm" id="timerStart">Start</button>
+                        <button class="btn btn--secondary btn--sm" id="timerPause">Pause</button>
+                        <button class="btn btn--outline btn--sm" id="timerReset">Reset</button>
                     </div>
-                    <div id="timerStats" class="timer-stats">
-                        Today: <strong>2h 15m</strong>
+                    <div class="timer-stats" id="timerStats">
+                        Today: 2h 15m
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- Main Dashboard -->
     <section class="main-dashboard">
         <div class="container">
@@ -122,33 +161,33 @@
                 <!-- Assignments Section -->
                 <div class="assignments-section">
                     <h2 class="section-title">📚 Your Assignments</h2>
-                    <div id="assignmentsGrid" class="assignments-grid">
+                    <div class="assignments-grid" id="assignmentsGrid">
                         <!-- Assignment cards will be rendered here by JavaScript -->
                     </div>
                 </div>
-
+                
                 <!-- Sidebar -->
                 <div class="dashboard-sidebar">
                     <!-- Quick Links -->
                     <div class="sidebar-panel">
                         <h3 class="panel-title">🔗 Quick Links</h3>
-                        <div id="quickLinks" class="quick-links">
+                        <div class="quick-links" id="quickLinks">
                             <!-- Quick links will be rendered here -->
                         </div>
                     </div>
-
+                    
                     <!-- Upcoming Events -->
                     <div class="sidebar-panel">
                         <h3 class="panel-title">📅 Upcoming Events</h3>
-                        <div id="eventsList" class="events-list">
+                        <div class="events-list" id="eventsList">
                             <!-- Events will be rendered here -->
                         </div>
                     </div>
-
+                    
                     <!-- Study Tips -->
                     <div class="sidebar-panel">
                         <h3 class="panel-title">💡 Study Tips</h3>
-                        <div id="studyTips" class="study-tips">
+                        <div class="study-tips" id="studyTips">
                             <!-- Study tips will be rendered here -->
                         </div>
                     </div>
@@ -156,33 +195,49 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Actions Section -->
     <section class="actions-section">
         <div class="container">
             <div class="action-buttons">
-                <button id="exportBtn" class="btn btn--outline">📤 Export Progress</button>
-                <button id="printBtn" class="btn btn--outline">🖨️ Print Schedule</button>
-                <button id="syncCanvasBtn" class="btn btn--primary">🔄 Sync from Canvas</button>
-                <button id="resetBtn" class="btn btn--secondary">🔄 Reset Progress</button>
+                <button class="btn btn--outline" id="exportBtn">📤 Export Progress</button>
+                <button class="btn btn--outline" id="printBtn">🖨️ Print Schedule</button>
+                <button class="btn btn--primary" id="syncCanvasBtn">🔄 Sync from Canvas</button>
+                <button class="btn btn--secondary" id="resetBtn">🔄 Reset Progress</button>
             </div>
         </div>
     </section>
-
+    
     <!-- Assignment Details Modal -->
-    <div id="assignmentModal" class="modal hidden">
+    <div class="modal hidden" id="assignmentModal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modalTitle" class="modal-title">Assignment Details</h2>
-                <button id="modalClose" class="modal-close">×</button>
+                <h2 class="modal-title" id="modalTitle">Assignment Details</h2>
+                <button class="modal-close" id="modalClose">×</button>
             </div>
-            <div id="modalBody" class="modal-body">
+            <div class="modal-body" id="modalBody">
                 <!-- Modal content will be populated by JavaScript -->
             </div>
         </div>
     </div>
-
+    
+    <!-- Scripts -->
     <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        // Register service worker for PWA functionality
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
