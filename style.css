@@ -1033,3 +1033,55 @@ padding-right: var(--space-12);
 
 .hero-title { font-size: var(--font-size-2xl); }
 }
+
+/* ===== OVERDUE ASSIGNMENT STYLING ===== */
+.assignment-card.overdue {
+  border-left: 4px solid #ff4444;
+  background: rgba(255, 68, 68, 0.08);
+  opacity: 0.8;
+  position: relative;
+}
+
+.assignment-card.overdue .assignment-title {
+  color: #ff6666;
+  opacity: 0.8;
+}
+
+.assignment-card.overdue .countdown {
+  opacity: 0.5;
+}
+
+.assignment-card.overdue::after {
+  content: "OVERDUE";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4444;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.assignment-card.overdue .days-remaining {
+  color: #ff4444 !important;
+  font-weight: bold !important;
+}
+
+/* Complete assignment styling */
+.assignment-card.complete::after {
+  content: "✓ COMPLETE";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #22c55e;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 2;
+}
+
