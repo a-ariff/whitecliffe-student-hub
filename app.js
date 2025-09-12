@@ -100,60 +100,60 @@ class WhitecliffeStudentHub {
     
     // ===== REAL WHITECLIFFE ASSIGNMENTS =====
     // Replace these with your actual assignments from Canvas
-    this.assignments = [
-      {
-        id: 'assignment-17947',
-        title: 'Assessment 1: Research and Requirements',
-        course: 'IT8106 Ubiquitous Computing and Intelligent Systems',
-        courseCode: 'IT8106',
-        dueDate: '2025-09-05',
-        dueTime: '23:59',
-        priority: 'High',
-        status: 'In Progress',
-        progress: 85,
-        estimatedHours: 15,
-        sourceUrl: 'https://learn.mywhitecliffe.com/courses/2265/assignments/17947'
-      },
-      {
-        id: 'assignment-17991', 
-        title: 'Assessment 1: Scenario-based Business Case Report',
-        course: 'IT8102 Technology Strategy & Information Management',
-        courseCode: 'IT8102',
-        dueDate: '2025-09-28',
-        dueTime: '23:59',
-        priority: 'High',
-        status: 'Planning',
-        progress: 25,
-        estimatedHours: 20,
-        sourceUrl: 'https://learn.mywhitecliffe.com/courses/2261/assignments/17991'
-      },
-      {
-        id: 'it8103-risk-assessment',
-        title: 'Assessment 2: Risk Assessment Report', 
-        course: 'IT8103 Cyber Security',
-        courseCode: 'IT8103',
-        dueDate: '2025-10-12',
-        dueTime: '23:59',
-        priority: 'Medium',
-        status: 'Not Started',
-        progress: 0,
-        estimatedHours: 12,
-        sourceUrl: null
-      },
-      {
-        id: 'it8101-literature-review',
-        title: 'Literature Review Draft',
-        course: 'IT8101 Research Methods and Skills', 
-        courseCode: 'IT8101',
-        dueDate: '2025-10-20',
-        dueTime: '23:59',
-        priority: 'Medium',
-        status: 'Research',
-        progress: 15,
-        estimatedHours: 18,
-        sourceUrl: null
-      }
-    ];
+   this.assignments = [
+  {
+    id: 'assignment-17947',
+    title: 'Assessment 1: Research and Requirements',
+    course: 'IT8106 Ubiquitous Computing and Intelligent Systems',
+    courseCode: 'IT8106',
+    dueDate: '2025-09-05',
+    dueTime: '23:59',
+    priority: 'High',
+    status: 'In Progress',
+    progress: 85,
+    estimatedHours: 15,
+    sourceUrl: 'https://learn.mywhitecliffe.com/courses/2265/assignments/17947'
+  },
+  {
+    id: 'assignment-17991',
+    title: 'Assessment 1: Scenario-based Business Case Report',
+    course: 'IT8102 Technology Strategy & Information Management',
+    courseCode: 'IT8102',
+    dueDate: '2025-09-28',
+    dueTime: '23:59',
+    priority: 'Medium',
+    status: 'Planning',
+    progress: 25,
+    estimatedHours: 20,
+    sourceUrl: 'https://whitecliffe.instructure.com/courses/2261/assignments/17991'
+  },
+  {
+    id: 'it8103-risk-assessment',
+    title: 'Assessment 2: Risk Assessment Report',
+    course: 'IT8103 Cyber Security',
+    courseCode: 'IT8103',
+    dueDate: '2025-10-12',
+    dueTime: '23:59',
+    priority: 'Medium',
+    status: 'Not Started',
+    progress: 0,
+    estimatedHours: 12,
+    sourceUrl: null
+  },
+  {
+    id: 'it8101-literature-review',
+    title: 'Literature Review Draft',
+    course: 'IT8101 Research Methods and Skills',
+    courseCode: 'IT8101',
+    dueDate: '2025-10-20',
+    dueTime: '23:59',
+    priority: 'Medium',
+    status: 'Research',
+    progress: 15,
+    estimatedHours: 18,
+    sourceUrl: null
+  }
+];
     
     // ===== REAL WHITECLIFFE EVENTS =====
     // Replace these with your actual events from Canvas
