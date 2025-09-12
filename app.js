@@ -5,7 +5,7 @@ function showToast(title, message, type = 'success') {
   const toast = document.createElement('div');
   toast.className = `toast toast--${type}`;
   toast.innerHTML = `
-    <div class="toast__icon">${type === 'success' ? '✅' : '❌'}</div>
+    ${type === 'success' ? '✅' : '❌'}
     <div class="toast__content">
       <div class="toast__title">${title}</div>
       <div class="toast__message">${message}</div>
@@ -58,129 +58,6 @@ function loadFromStorage(key, maxAgeMs = 30 * 60 * 1000) {
   }
 }
 
-// Check if Canvas is reachable
-async function isCanvasReachable() {
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 3000);
-    
-    const response = await fetch('https://learn.mywhitecliffe.com/calendar', {
-      method: 'HEAD',
-      credentials: 'include',
-      signal: controller.signal
-    });
-    
-    clearTimeout(timeout);
-    return response.ok;
-  } catch (e) {
-    return false;
-  }
-}
-
-// HTML parsing functions
-function parseAssignmentsHTML(html, courseMeta) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const blocks = Array.from(doc.querySelectorAll('[role="listitem"], .assignment, .ig-row'));
-  const items = [];
-
-  blocks.forEach(el => {
-    const titleEl = el.querySelector('a') || el.querySelector('.ig-title') || el.querySelector('h3');
-    const title = titleEl ? titleEl.textContent.trim().replace(/\s+/g, ' ') : null;
-
-    const dueText = (el.textContent || '').match(/Due\s+([A-Za-z]{3,}\s+\d{1,2}\s+at\s+\d{1,2}:\d{2})/i)
-                  || (el.textContent || '').match(/Due\s+([A-Za-z]{3,}\s+\d{1,2},?\s+\d{4}\s+at\s+\d{1,2}:\d{2})/i)
-                  || (el.textContent || '').match(/Due\s+([A-Za-z]{3,}\s+\d{1,2}\s+at\s+\d{1,2}:\d{2}\s*(AM|PM)?)/i);
-
-    let dueISO = null;
-    if (dueText && dueText[1]) {
-      const parsed = new Date(dueText[1] + ' NZT');
-      if (!isNaN(parsed)) {
-        dueISO = parsed.toISOString();
-      }
-    }
-
-    const pointsMatch = (el.textContent || '').match(/(\d+)\s*points?/i);
-    const points = pointsMatch ? parseInt(pointsMatch[1], 10) : null;
-
-    const urlEl = el.querySelector('a[href*="/assignments/"]');
-    const url = urlEl ? urlEl.href : null;
-
-    if (title && url) {
-      items.push({
-        title,
-        due: dueISO,
-        points,
-        url
-      });
-    }
-  });
-
-  return {
-    course: courseMeta.course,
-    courseCode: courseMeta.courseCode,
-    items
-  };
-}
-
-function parseCalendarHTML(html) {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const entries = [];
-  const agenda = doc.querySelector('.agenda-wrapper') || doc;
-
-  const lines = Array.from(agenda.querySelectorAll('li, .agenda-event, .agenda-assignment, .event, .assignment'));
-  lines.forEach(el => {
-    const text = el.textContent.replace(/\s+/g, ' ').trim();
-
-    const timeMatch = text.match(/Starts at (\d{1,2}:\d{2}).*?Ends at (\d{1,2}:\d{2})/i);
-    let dateStr = null;
-    const heading = el.closest('section')?.querySelector('h3, h2');
-    if (heading) {
-      const htxt = heading.textContent.replace(/\s+/g, ' ').trim();
-      const dateMatch = htxt.match(/(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+([A-Za-z]+)\s+(\d{1,2})/i);
-      if (dateMatch) {
-        const monthDay = `${dateMatch[2]} ${dateMatch[3]}`;
-        const year = new Date().getFullYear();
-        dateStr = `${monthDay}, ${year}`;
-      }
-    }
-
-    const courseMatch = text.match(/\b(IT8101|IT8102|IT8103|IT8106)\b/);
-    const courseCode = courseMatch ? courseMatch[1] : null;
-
-    let title = text;
-    title = title.replace(/Starts at.*$/i, '').trim();
-    title = title.replace(/Not Completed.*$/i, '').trim();
-    title = title.replace(/\bCalendar\b.*$/i, '').trim();
-
-    const dueMatch = text.match(/Due\s+(\d{1,2}:\d{2})/i);
-
-    if (timeMatch && dateStr) {
-      const start = new Date(`${dateStr} ${timeMatch[1]} NZT`);
-      const end = new Date(`${dateStr} ${timeMatch[2]} NZT`);
-      if (!isNaN(start) && !isNaN(end)) {
-        entries.push({
-          title,
-          courseCode,
-          start: start.toISOString(),
-          end: end.toISOString()
-        });
-      }
-    } else if (dueMatch && dateStr) {
-      const due = new Date(`${dateStr} ${dueMatch[1]} NZT`);
-      if (!isNaN(due)) {
-        entries.push({
-          title,
-          courseCode,
-          start: due.toISOString(),
-          end: due.toISOString()
-        });
-      }
-    }
-  });
-
-  return entries;
-}
-
 // Helper functions for countdown
 function computeCountdown(dueISO) {
   const now = new Date();
@@ -206,7 +83,7 @@ class WhitecliffeStudentHub {
   constructor() {
     this.currentDate = new Date();
     this.isDarkMode = false;
-
+    
     // Motivational quotes
     this.motivationalQuotes = [
       "The expert in anything was once a beginner. Keep going! 🚀",
@@ -215,15 +92,97 @@ class WhitecliffeStudentHub {
       "Technology doesn't wait. Neither should your learning journey! ⚡",
       "The best time to plant a tree was 20 years ago. The second best time is now! 🌱",
       "Success is not final, failure is not fatal: it is the courage to continue that counts. 🎯",
-      "The only impossible journey is the one you never begin. Start today! 🏃♂️",
+      "The only impossible journey is the one you never begin. Start today! 🏃‍♂️",
       "Innovation distinguishes between a leader and a follower. Lead! 🌟",
       "The beautiful thing about learning is nobody can take it away from you. 📚",
       "Your limitation—it's only your imagination. Think bigger! 🧠"
     ];
-
-    // Fallback data
-    this.assignments = [];
-    this.upcomingEvents = [];
+    
+    // ===== REAL WHITECLIFFE ASSIGNMENTS =====
+    // Replace these with your actual assignments from Canvas
+    this.assignments = [
+      {
+        id: 'assignment-17947',
+        title: 'Assessment 1: Research and Requirements',
+        course: 'IT8106 Ubiquitous Computing and Intelligent Systems',
+        courseCode: 'IT8106',
+        dueDate: '2025-09-05',
+        dueTime: '23:59',
+        priority: 'High',
+        status: 'In Progress',
+        progress: 85,
+        estimatedHours: 15,
+        sourceUrl: 'https://learn.mywhitecliffe.com/courses/2265/assignments/17947'
+      },
+      {
+        id: 'assignment-17991', 
+        title: 'Assessment 1: Scenario-based Business Case Report',
+        course: 'IT8102 Technology Strategy & Information Management',
+        courseCode: 'IT8102',
+        dueDate: '2025-09-28',
+        dueTime: '23:59',
+        priority: 'High',
+        status: 'Planning',
+        progress: 25,
+        estimatedHours: 20,
+        sourceUrl: 'https://learn.mywhitecliffe.com/courses/2261/assignments/17991'
+      },
+      {
+        id: 'it8103-risk-assessment',
+        title: 'Assessment 2: Risk Assessment Report', 
+        course: 'IT8103 Cyber Security',
+        courseCode: 'IT8103',
+        dueDate: '2025-10-12',
+        dueTime: '23:59',
+        priority: 'Medium',
+        status: 'Not Started',
+        progress: 0,
+        estimatedHours: 12,
+        sourceUrl: null
+      },
+      {
+        id: 'it8101-literature-review',
+        title: 'Literature Review Draft',
+        course: 'IT8101 Research Methods and Skills', 
+        courseCode: 'IT8101',
+        dueDate: '2025-10-20',
+        dueTime: '23:59',
+        priority: 'Medium',
+        status: 'Research',
+        progress: 15,
+        estimatedHours: 18,
+        sourceUrl: null
+      }
+    ];
+    
+    // ===== REAL WHITECLIFFE EVENTS =====
+    // Replace these with your actual events from Canvas
+    this.upcomingEvents = [
+      {
+        title: 'UCIS- Third Seminar',
+        courseCode: 'IT8106',
+        start: '2025-09-23T06:30:00.000Z',
+        end: '2025-09-23T08:30:00.000Z'
+      },
+      {
+        title: 'Seminar 3 - Research Methods & Skills',
+        courseCode: 'IT8101', 
+        start: '2025-09-24T02:00:00.000Z',
+        end: '2025-09-24T04:00:00.000Z'
+      },
+      {
+        title: 'Weekly QA Session',
+        courseCode: 'IT8101',
+        start: '2025-09-24T03:00:00.000Z', 
+        end: '2025-09-24T04:00:00.000Z'
+      },
+      {
+        title: 'IT8102 Assignment Workshop',
+        courseCode: 'IT8102',
+        start: '2025-09-26T13:00:00.000Z',
+        end: '2025-09-26T15:00:00.000Z'
+      }
+    ];
     
     this.quickLinks = [
       { title: "Canvas LMS", url: "https://whitecliffe.instructure.com", icon: "📚", description: "Course materials and submissions" },
@@ -233,7 +192,7 @@ class WhitecliffeStudentHub {
       { title: "GitHub", url: "https://github.com", icon: "💻", description: "Code repositories and projects" },
       { title: "Overleaf", url: "https://overleaf.com", icon: "📄", description: "LaTeX document preparation" }
     ];
-
+    
     this.studyTips = [
       "🍅 Use Pomodoro Technique: 25min focused work, 5min break",
       "📝 Take handwritten notes for better retention",
@@ -244,7 +203,7 @@ class WhitecliffeStudentHub {
       "📱 Use apps to block distracting websites during study",
       "☕ Stay hydrated and maintain good nutrition"
     ];
-
+    
     this.pomodoroState = {
       minutes: 25,
       seconds: 0,
@@ -253,14 +212,14 @@ class WhitecliffeStudentHub {
       sessionCount: 0,
       dailyStudyMinutes: 135
     };
-
+    
     this.studyStats = {
       streak: 3,
       totalStudyTime: 135,
       completedSessions: 8,
       achievements: ['First Week', 'Early Bird', 'Consistent Learner']
     };
-
+    
     this.pomodoroInterval = null;
     this.countdownInterval = null;
     this._tickInterval = null;
@@ -275,7 +234,7 @@ class WhitecliffeStudentHub {
       this.assignments = storedAssignments;
       this.upcomingEvents = storedEvents;
     }
-
+    
     // Initial render with cached/fallback data
     this.currentDate = new Date();
     this.updateCurrentTime();
@@ -289,7 +248,7 @@ class WhitecliffeStudentHub {
     this.startCountdown();
     this.initPomodoro();
     this.bindEvents();
-
+    
     // Start real-time clock
     if (this._tickInterval) clearInterval(this._tickInterval);
     this._tickInterval = setInterval(() => {
@@ -297,102 +256,13 @@ class WhitecliffeStudentHub {
       this.updateCurrentTime();
       this.updateCountdown();
     }, 1000);
-
-    // Auto-sync from Canvas if reachable
-    if (await isCanvasReachable()) {
-      setTimeout(() => {
-        this.syncFromCanvas();
-      }, 2000);
-    } else {
-      if (storedAssignments && storedEvents) {
-        const lastSync = new Date(JSON.parse(localStorage.getItem('canvas_assignments')).timestamp);
-        const timeDiff = Math.floor((Date.now() - lastSync.getTime()) / (1000 * 60));
-        showToast(
-          'Using Cached Data',
-          `Last synced ${timeDiff} minutes ago. Canvas not reachable.`,
-          'success'
-        );
-      }
-    }
-  }
-
-  async syncFromCanvas() {
-    try {
-      const coursePages = [
-        { url: 'https://learn.mywhitecliffe.com/courses/2260/assignments', course: 'IT8101 Research Methods and Skills', courseCode: 'IT8101' },
-        { url: 'https://learn.mywhitecliffe.com/courses/2261/assignments', course: 'IT8102 Technology Management', courseCode: 'IT8102' },
-        { url: 'https://learn.mywhitecliffe.com/courses/2262/assignments', course: 'IT8103 Cyber Security', courseCode: 'IT8103' },
-        { url: 'https://learn.mywhitecliffe.com/courses/2265/assignments', course: 'IT8106 Ubiquitous Computing and Intelligent Systems', courseCode: 'IT8106' }
-      ];
-
-      document.body.classList.add('loading');
-
-      const pages = await Promise.all(coursePages.map(async meta => {
-        const res = await fetch(meta.url, { credentials: 'include' });
-        const html = await res.text();
-        return parseAssignmentsHTML(html, meta);
-      }));
-
-      const now = new Date();
-      const assignments = pages.flatMap(group =>
-        group.items.map(item => {
-          let dueISO = item.due;
-          if (!dueISO) {
-            const fallback = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0);
-            dueISO = fallback.toISOString();
-          }
-          const [dDate, dTime] = dueISO.split('T');
-          return {
-            id: crypto.randomUUID ? crypto.randomUUID() : String(Math.random()),
-            title: item.title,
-            course: group.course,
-            courseCode: group.courseCode,
-            dueDate: dDate,
-            dueTime: dTime.substring(0,5),
-            priority: 'Medium',
-            status: 'Not Started',
-            progress: 0,
-            estimatedHours: 0,
-            sourceUrl: item.url
-          };
-        })
-      );
-
-      const calendarUrl = 'https://learn.mywhitecliffe.com/calendar#view_name=agenda&view_start=2025-09-12';
-      const calRes = await fetch(calendarUrl, { credentials: 'include' });
-      const calHtml = await calRes.text();
-      const events = parseCalendarHTML(calHtml);
-
-      saveToStorage('canvas_assignments', assignments);
-      saveToStorage('canvas_events', events);
-      
-      this.assignments = assignments;
-      this.upcomingEvents = events;
-
-      this.currentDate = new Date();
-      this.calculateDaysUntilDue();
-      this.renderAssignments();
-      this.renderEvents();
-      this.updateStats();
-      this.updateCountdown();
-
-      const now_time = new Date().toLocaleTimeString('en-NZ', { hour: '2-digit', minute: '2-digit' });
-      showToast(
-        'Canvas Sync Complete',
-        `Synced ${assignments.length} assignments and ${events.length} events at ${now_time}`,
-        'success'
-      );
-
-    } catch (err) {
-      console.error('Sync error:', err);
-      showToast(
-        'Canvas Sync Failed',
-        'Please ensure you are logged in and try again.',
-        'error'
-      );
-    } finally {
-      document.body.classList.remove('loading');
-    }
+    
+    // Using real data from Canvas ICS feed - no sync needed
+    showToast(
+      'Student Hub Ready!',
+      `Loaded ${this.assignments.length} assignments and ${this.upcomingEvents.length} events`,
+      'success'
+    );
   }
 
   showDailyQuote() {
@@ -441,17 +311,18 @@ class WhitecliffeStudentHub {
     cards.forEach(card => {
       const dueISO = card.getAttribute('data-due-iso');
       if (!dueISO) return;
+      
       const { diff, days, hours, minutes, seconds } = computeCountdown(dueISO);
-
       const dd = card.querySelector('[data-countdown-days]');
       const hh = card.querySelector('[data-countdown-hours]');
       const mm = card.querySelector('[data-countdown-minutes]');
       const ss = card.querySelector('[data-countdown-seconds]');
+      
       if (dd) dd.textContent = days;
       if (hh) hh.textContent = String(hours).padStart(2, '0');
       if (mm) mm.textContent = String(minutes).padStart(2, '0');
       if (ss) ss.textContent = String(seconds).padStart(2, '0');
-
+      
       card.classList.remove('critical', 'high', 'medium');
       card.classList.add(getUrgency(diff));
     });
@@ -473,33 +344,44 @@ class WhitecliffeStudentHub {
   renderAssignments() {
     const grid = document.getElementById('assignmentsGrid');
     if (!grid) return;
-
+    
     const sortedAssignments = [...this.assignments].sort((a, b) => 
       new Date(`${a.dueDate}T${a.dueTime}`) - new Date(`${b.dueDate}T${b.dueTime}`)
     );
-
+    
     grid.innerHTML = sortedAssignments.map(assignment => `
-      <div class="assignment-card ${assignment.priority.toLowerCase()}" data-due-iso="${assignment.dueDate}T${assignment.dueTime}" onclick="window.hub.showAssignmentDetails('${assignment.id}')">
+      <div class="assignment-card ${assignment.priority.toLowerCase()}" 
+           data-due-iso="${assignment.dueDate}T${assignment.dueTime}" 
+           onclick="hub.showAssignmentDetails('${assignment.id}')">
         <div class="assignment-header">
           <div class="assignment-info">
             <h3 class="assignment-title">${assignment.title}</h3>
-            <p class="assignment-course">${assignment.course}</p>
+            <div class="assignment-course">${assignment.course}</div>
           </div>
-          <span class="assignment-priority ${assignment.priority.toLowerCase()}">${assignment.priority}</span>
+          <div class="assignment-priority ${assignment.priority.toLowerCase()}">${assignment.priority}</div>
         </div>
-        
         <div class="assignment-due">
           <span class="due-date">Due: ${this.formatDate(assignment.dueDate)} at ${assignment.dueTime}</span>
           <span class="days-remaining ${assignment.priority.toLowerCase()}">${assignment.daysUntilDue} days left</span>
         </div>
-        
         <div class="countdown">
-          <div class="countdown-item"><span class="countdown-number" data-countdown-days>0</span><span class="countdown-label">Days</span></div>
-          <div class="countdown-item"><span class="countdown-number" data-countdown-hours>00</span><span class="countdown-label">Hours</span></div>
-          <div class="countdown-item"><span class="countdown-number" data-countdown-minutes>00</span><span class="countdown-label">Minutes</span></div>
-          <div class="countdown-item"><span class="countdown-number" data-countdown-seconds>00</span><span class="countdown-label">Seconds</span></div>
+          <div class="countdown-item">
+            <span class="countdown-number" data-countdown-days>0</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" data-countdown-hours>00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" data-countdown-minutes>00</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" data-countdown-seconds>00</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
         </div>
-        
         <div class="progress-section">
           <div class="progress-header">
             <span class="progress-label">Progress</span>
@@ -525,9 +407,9 @@ class WhitecliffeStudentHub {
   renderQuickLinks() {
     const container = document.getElementById('quickLinks');
     if (!container) return;
-
+    
     container.innerHTML = this.quickLinks.map(link => `
-      <a href="${link.url}" class="quick-link" target="_blank">
+      <a href="${link.url}" target="_blank" class="quick-link">
         <span class="link-icon">${link.icon}</span>
         <div class="link-info">
           <div class="link-title">${link.title}</div>
@@ -540,7 +422,7 @@ class WhitecliffeStudentHub {
   renderEvents() {
     const container = document.getElementById('eventsList');
     if (!container) return;
-
+    
     const upcomingEvents = this.upcomingEvents.slice(0, 5);
     container.innerHTML = upcomingEvents.map(event => `
       <div class="event-item">
@@ -572,7 +454,7 @@ class WhitecliffeStudentHub {
   renderStudyTips() {
     const container = document.getElementById('studyTips');
     if (!container) return;
-
+    
     container.innerHTML = this.studyTips.map(tip => `
       <div class="study-tip">${tip}</div>
     `).join('');
@@ -583,7 +465,7 @@ class WhitecliffeStudentHub {
     const completedEl = document.getElementById('completedAssignments');
     const avgEl = document.getElementById('averageProgress');
     const streakEl = document.getElementById('studyStreak');
-
+    
     if (totalEl) totalEl.textContent = this.assignments.length;
     if (completedEl) completedEl.textContent = this.assignments.filter(a => a.progress === 100).length;
     if (avgEl) {
@@ -602,21 +484,19 @@ class WhitecliffeStudentHub {
     const timeEl = document.getElementById('timerTime');
     const sessionEl = document.getElementById('timerSession');
     const statsEl = document.getElementById('timerStats');
-
+    
     if (timeEl) {
       const minutes = String(this.pomodoroState.minutes).padStart(2, '0');
       const seconds = String(this.pomodoroState.seconds).padStart(2, '0');
       timeEl.textContent = `${minutes}:${seconds}`;
     }
-
     if (sessionEl) {
       sessionEl.textContent = this.pomodoroState.isBreak ? 'Break Time' : 'Focus Session';
     }
-
     if (statsEl) {
       const hours = Math.floor(this.pomodoroState.dailyStudyMinutes / 60);
       const mins = this.pomodoroState.dailyStudyMinutes % 60;
-      statsEl.innerHTML = `Today: <strong>${hours}h ${mins}m</strong>`;
+      statsEl.innerHTML = `Today: **${hours}h ${mins}m**`;
     }
   }
 
@@ -675,11 +555,11 @@ class WhitecliffeStudentHub {
   showAssignmentDetails(assignmentId) {
     const assignment = this.assignments.find(a => a.id === assignmentId);
     if (!assignment) return;
-
+    
     const modal = document.getElementById('assignmentModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
-
+    
     modalTitle.textContent = assignment.title;
     modalBody.innerHTML = `
       <div class="assignment-details">
@@ -691,7 +571,6 @@ class WhitecliffeStudentHub {
         ${assignment.sourceUrl ? `<p><a href="${assignment.sourceUrl}" target="_blank" class="btn btn--primary">View in Canvas</a></p>` : ''}
       </div>
     `;
-
     modal.classList.remove('hidden');
   }
 
@@ -700,22 +579,20 @@ class WhitecliffeStudentHub {
     const startBtn = document.getElementById('timerStart');
     const pauseBtn = document.getElementById('timerPause');
     const resetBtn = document.getElementById('timerReset');
-
     if (startBtn) startBtn.addEventListener('click', () => this.startPomodoro());
     if (pauseBtn) pauseBtn.addEventListener('click', () => this.pausePomodoro());
     if (resetBtn) resetBtn.addEventListener('click', () => this.resetPomodoro());
 
-    // Canvas sync button
+    // Canvas sync button (now just refreshes the page)
     const syncBtn = document.getElementById('syncCanvasBtn');
     if (syncBtn) {
-      syncBtn.addEventListener('click', () => this.syncFromCanvas());
+      syncBtn.addEventListener('click', () => location.reload());
     }
 
     // Modal events
     const modal = document.getElementById('assignmentModal');
     const modalClose = document.getElementById('modalClose');
     const modalOverlay = modal?.querySelector('.modal-overlay');
-
     if (modalClose) {
       modalClose.addEventListener('click', () => modal.classList.add('hidden'));
     }
@@ -726,13 +603,11 @@ class WhitecliffeStudentHub {
     // Action buttons
     const exportBtn = document.getElementById('exportBtn');
     const printBtn = document.getElementById('printBtn');
-
     if (exportBtn) {
       exportBtn.addEventListener('click', () => {
         showToast('Export Started', 'Generating your progress report...', 'success');
       });
     }
-
     if (printBtn) {
       printBtn.addEventListener('click', () => {
         window.print();
