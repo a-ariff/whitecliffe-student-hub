@@ -1,6 +1,6 @@
 # 🎓 Whitecliffe Student Hub
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-username.github.io/whitecliffe-student-hub)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://a-ariff.github.io/whitecliffe-student-hub/)
 [![GitHub Stars](https://img.shields.io/github/stars/your-username/whitecliffe-student-hub)](https://github.com/your-username/whitecliffe-student-hub/stargazers)
 [![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red)](https://github.com/your-username/whitecliffe-student-hub)
 
@@ -42,7 +42,7 @@
 
 ## 🚀 Live Demo
 
-**[Try it now!](https://your-username.github.io/whitecliffe-student-hub)**
+**[Try it now!](https://a-ariff.github.io/whitecliffe-student-hub/)**
 
 Perfect for:
 - 🏠 **Setting as your browser homepage**
@@ -105,7 +105,7 @@ Each assignment includes:
 
 - 📚 [Canvas LMS](https://whitecliffe.instructure.com)
 - ✉️ [Student Email](https://outlook.office.com)
-- 🏛️ [Library Resources](https://whitecliffe.libguides.com)
+- 🏛️ [Library Resources](https://library.mywhitecliffe.com/)
 - 🔒 [TryHackMe](https://tryhackme.com)
 - 💻 [GitHub](https://github.com/a-ariff)
 - 📄 [Overleaf](https://overleaf.com)
