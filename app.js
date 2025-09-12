@@ -98,89 +98,119 @@ class WhitecliffeStudentHub {
       "Your limitation—it's only your imagination. Think bigger! 🧠"
     ];
     
-    // ===== REAL WHITECLIFFE ASSIGNMENTS =====
-    // Replace these with your actual assignments from Canvas
-   this.assignments = [
-  {
-    id: 'assignment-17947',
-    title: 'Assessment 1: Research and Requirements',
-    course: 'IT8106 Ubiquitous Computing and Intelligent Systems',
-    courseCode: 'IT8106',
-    dueDate: '2025-09-05',
-    dueTime: '23:59',
-    priority: 'High',
-    status: 'In Progress',
-    progress: 85,
-    estimatedHours: 15,
-    sourceUrl: 'https://learn.mywhitecliffe.com/courses/2265/assignments/17947'
-  },
-  {
-    id: 'assignment-17991',
-    title: 'Assessment 1: Scenario-based Business Case Report',
-    course: 'IT8102 Technology Strategy & Information Management',
-    courseCode: 'IT8102',
-    dueDate: '2025-09-28',
-    dueTime: '23:59',
-    priority: 'Medium',
-    status: 'Planning',
-    progress: 25,
-    estimatedHours: 20,
-    sourceUrl: 'https://whitecliffe.instructure.com/courses/2261/assignments/17991'
-  },
-  {
-    id: 'it8103-risk-assessment',
-    title: 'Assessment 2: Risk Assessment Report',
-    course: 'IT8103 Cyber Security',
-    courseCode: 'IT8103',
-    dueDate: '2025-10-12',
-    dueTime: '23:59',
-    priority: 'Medium',
-    status: 'Not Started',
-    progress: 0,
-    estimatedHours: 12,
-    sourceUrl: null
-  },
-  {
-    id: 'it8101-literature-review',
-    title: 'Literature Review Draft',
-    course: 'IT8101 Research Methods and Skills',
-    courseCode: 'IT8101',
-    dueDate: '2025-10-20',
-    dueTime: '23:59',
-    priority: 'Medium',
-    status: 'Research',
-    progress: 15,
-    estimatedHours: 18,
-    sourceUrl: null
-  }
-];
-    
-    // ===== REAL WHITECLIFFE EVENTS =====
-    // Replace these with your actual events from Canvas
-    this.upcomingEvents = [
+    // ===== REAL WHITECLIFFE ASSIGNMENTS FROM CANVAS =====
+    this.assignments = [
       {
-        title: 'UCIS- Third Seminar',
+        id: 'assignment-17947',
+        title: 'Assessment 1: Research and Requirements',
+        course: 'IT8106 Ubiquitous Computing and Intelligent Systems',
         courseCode: 'IT8106',
-        start: '2025-09-23T06:30:00.000Z',
-        end: '2025-09-23T08:30:00.000Z'
+        dueDate: '2025-09-05',
+        dueTime: '23:59',
+        priority: 'High',
+        status: 'Complete',
+        progress: 100,
+        estimatedHours: 15,
+        sourceUrl: 'https://learn.mywhitecliffe.com/courses/2265/assignments/17947'
       },
       {
-        title: 'Seminar 3 - Research Methods & Skills',
-        courseCode: 'IT8101', 
-        start: '2025-09-24T02:00:00.000Z',
-        end: '2025-09-24T04:00:00.000Z'
+        id: 'assignment-17991', 
+        title: 'Assessment 1: Scenario-based Business Case Report',
+        course: 'IT8102 Technology Strategy & Information Management',
+        courseCode: 'IT8102',
+        dueDate: '2025-09-28',
+        dueTime: '23:59',
+        priority: 'High',
+        status: 'In Progress',
+        progress: 35,
+        estimatedHours: 20,
+        sourceUrl: 'https://learn.mywhitecliffe.com/courses/2261/assignments/17991'
+      },
+      {
+        id: 'assignment-it8103-eval',
+        title: 'Assessment 2: Evaluative Report: Systems critique and solutions proposal',
+        course: 'IT8103 Cyber Security',
+        courseCode: 'IT8103',
+        dueDate: '2025-11-03',
+        dueTime: '23:59',
+        priority: 'Medium',
+        status: 'Not Started',
+        progress: 0,
+        estimatedHours: 15,
+        sourceUrl: null
+      },
+      {
+        id: 'assignment-it8101-research',
+        title: 'Assessment 2: Research Proposal and Reflection',
+        course: 'IT8101 Research Methods and Skills',
+        courseCode: 'IT8101',
+        dueDate: '2025-11-05',
+        dueTime: '23:59',
+        priority: 'Medium',
+        status: 'Planning',
+        progress: 10,
+        estimatedHours: 18,
+        sourceUrl: null
+      },
+      {
+        id: 'assignment-it8106-design',
+        title: 'Assessment 2: Evaluative Design Solution Report',
+        course: 'IT8106 Ubiquitous Computing and Intelligent Systems',
+        courseCode: 'IT8106',
+        dueDate: '2025-11-07',
+        dueTime: '23:59',
+        priority: 'Medium',
+        status: 'Not Started',
+        progress: 0,
+        estimatedHours: 16,
+        sourceUrl: null
+      },
+      {
+        id: 'assignment-it8102-project',
+        title: 'Assessment 2: Scenario-based Project Plan Report',
+        course: 'IT8102 Technology Strategy & Information Management',
+        courseCode: 'IT8102',
+        dueDate: '2025-11-14',
+        dueTime: '23:59',
+        priority: 'Low',
+        status: 'Not Started',
+        progress: 0,
+        estimatedHours: 18,
+        sourceUrl: null
+      }
+    ];
+    
+    // ===== REAL WHITECLIFFE EVENTS FROM CANVAS =====
+    this.upcomingEvents = [
+      {
+        title: 'Q&A- Cyber Security: Weekly',
+        courseCode: 'IT8103',
+        start: '2025-09-15T01:00:00.000Z',
+        end: '2025-09-15T02:00:00.000Z'
       },
       {
         title: 'Weekly QA Session',
         courseCode: 'IT8101',
-        start: '2025-09-24T03:00:00.000Z', 
-        end: '2025-09-24T04:00:00.000Z'
+        start: '2025-09-17T04:00:00.000Z',
+        end: '2025-09-17T05:00:00.000Z'
       },
       {
-        title: 'IT8102 Assignment Workshop',
-        courseCode: 'IT8102',
-        start: '2025-09-26T13:00:00.000Z',
-        end: '2025-09-26T15:00:00.000Z'
+        title: 'Seminar 3 - Cyber Security',
+        courseCode: 'IT8103',
+        start: '2025-09-23T04:00:00.000Z',
+        end: '2025-09-23T06:00:00.000Z'
+      },
+      {
+        title: 'UCIS- Third Seminar',
+        courseCode: 'IT8106',
+        start: '2025-09-23T07:30:00.000Z',
+        end: '2025-09-23T09:30:00.000Z'
+      },
+      {
+        title: 'Seminar 3 - Research Methods & Skills',
+        courseCode: 'IT8101',
+        start: '2025-09-24T03:00:00.000Z',
+        end: '2025-09-24T05:00:00.000Z'
       }
     ];
     
@@ -230,12 +260,13 @@ class WhitecliffeStudentHub {
     const storedAssignments = loadFromStorage('canvas_assignments', 30 * 60 * 1000);
     const storedEvents = loadFromStorage('canvas_events', 30 * 60 * 1000);
     
-    if (storedAssignments && storedEvents) {
-      this.assignments = storedAssignments;
-      this.upcomingEvents = storedEvents;
-    }
+    // Use real data instead of cached data
+    // if (storedAssignments && storedEvents) {
+    //   this.assignments = storedAssignments;
+    //   this.upcomingEvents = storedEvents;
+    // }
     
-    // Initial render with cached/fallback data
+    // Initial render with real data
     this.currentDate = new Date();
     this.updateCurrentTime();
     this.showDailyQuote();
@@ -257,7 +288,7 @@ class WhitecliffeStudentHub {
       this.updateCountdown();
     }, 1000);
     
-    // Using real data from Canvas ICS feed - no sync needed
+    // Using real data from Canvas - no sync needed
     showToast(
       'Student Hub Ready!',
       `Loaded ${this.assignments.length} assignments and ${this.upcomingEvents.length} events`,
@@ -323,21 +354,66 @@ class WhitecliffeStudentHub {
       if (mm) mm.textContent = String(minutes).padStart(2, '0');
       if (ss) ss.textContent = String(seconds).padStart(2, '0');
       
-      card.classList.remove('critical', 'high', 'medium');
-      card.classList.add(getUrgency(diff));
+      card.classList.remove('critical', 'high', 'medium', 'overdue');
+      
+      // Check if overdue
+      const dueDate = new Date(dueISO);
+      const now = new Date();
+      
+      if (dueDate < now) {
+        // Assignment is overdue
+        card.classList.add('overdue');
+        
+        // Update the "days left" text to show "OVERDUE"
+        const daysRemaining = card.querySelector('.days-remaining');
+        if (daysRemaining) {
+          const daysOverdue = Math.floor((now - dueDate) / (1000 * 60 * 60 * 24));
+          daysRemaining.textContent = `${daysOverdue} days overdue`;
+          daysRemaining.style.color = '#ff4444';
+          daysRemaining.style.fontWeight = 'bold';
+        }
+      } else {
+        card.classList.add(getUrgency(diff));
+      }
     });
 
-    // Update main countdown in hero
+    // Update main countdown in hero - UPCOMING ONLY
     const countdownDays = document.getElementById('countdownDays');
     const countdownHours = document.getElementById('countdownHours');
     const countdownMinutes = document.getElementById('countdownMinutes');
     
     if (this.assignments.length > 0) {
-      const nextAssignment = this.assignments.sort((a, b) => new Date(`${a.dueDate}T${a.dueTime}`) - new Date(`${b.dueDate}T${b.dueTime}`))[0];
-      const { days, hours, minutes } = computeCountdown(`${nextAssignment.dueDate}T${nextAssignment.dueTime}`);
-      if (countdownDays) countdownDays.textContent = days;
-      if (countdownHours) countdownHours.textContent = String(hours).padStart(2, '0');
-      if (countdownMinutes) countdownMinutes.textContent = String(minutes).padStart(2, '0');
+      const now = new Date();
+      
+      // Get ONLY upcoming assignments (ignore overdue)
+      const upcomingOnly = this.assignments
+        .filter(a => new Date(`${a.dueDate}T${a.dueTime}`) > now)
+        .sort((a, b) => new Date(`${a.dueDate}T${a.dueTime}`) - new Date(`${b.dueDate}T${b.dueTime}`));
+
+      if (upcomingOnly.length > 0) {
+        // Show next upcoming assignment
+        const nextAssignment = upcomingOnly[0];
+        const { days, hours, minutes } = computeCountdown(`${nextAssignment.dueDate}T${nextAssignment.dueTime}`);
+        
+        if (countdownDays) countdownDays.textContent = days;
+        if (countdownHours) countdownHours.textContent = String(hours).padStart(2, '0');
+        if (countdownMinutes) countdownMinutes.textContent = String(minutes).padStart(2, '0');
+        
+        // Update hero title to match the assignment
+        const heroTitle = document.querySelector('.alert-assignment');
+        const heroAlert = document.querySelector('.alert-title');
+        if (heroTitle) heroTitle.textContent = `${nextAssignment.title} - ${nextAssignment.courseCode}`;
+        if (heroAlert) heroAlert.textContent = 'UPCOMING DEADLINE!';
+        
+      } else {
+        // No upcoming assignments - show "All caught up!"
+        if (countdownDays) countdownDays.textContent = '∞';
+        if (countdownHours) countdownHours.textContent = '∞';
+        if (countdownMinutes) countdownMinutes.textContent = '∞';
+        
+        const heroAlert = document.querySelector('.alert-title');
+        if (heroAlert) heroAlert.textContent = 'ALL CAUGHT UP!';
+      }
     }
   }
 
