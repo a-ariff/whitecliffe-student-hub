@@ -256,17 +256,7 @@ class WhitecliffeStudentHub {
   }
 
   async init() {
-    // Load from localStorage first for instant display
-    const storedAssignments = loadFromStorage('canvas_assignments', 30 * 60 * 1000);
-    const storedEvents = loadFromStorage('canvas_events', 30 * 60 * 1000);
-    
     // Use real data instead of cached data
-    // if (storedAssignments && storedEvents) {
-    //   this.assignments = storedAssignments;
-    //   this.upcomingEvents = storedEvents;
-    // }
-    
-    // Initial render with real data
     this.currentDate = new Date();
     this.updateCurrentTime();
     this.showDailyQuote();
@@ -354,17 +344,26 @@ class WhitecliffeStudentHub {
       if (mm) mm.textContent = String(minutes).padStart(2, '0');
       if (ss) ss.textContent = String(seconds).padStart(2, '0');
       
-      card.classList.remove('critical', 'high', 'medium', 'overdue');
+      card.classList.remove('critical', 'high', 'medium', 'overdue', 'complete');
       
-      // Check if overdue
+      // Get assignment data to check completion status
+      const assignmentId = card.getAttribute('data-assignment-id');
+      const assignment = this.assignments.find(a => a.id === assignmentId);
       const dueDate = new Date(dueISO);
       const now = new Date();
-      
-      if (dueDate < now) {
-        // Assignment is overdue
+
+      if (assignment && assignment.progress === 100) {
+        // Assignment is completed - show as complete
+        card.classList.add('complete');
+        const daysRemaining = card.querySelector('.days-remaining');
+        if (daysRemaining) {
+          daysRemaining.textContent = `Completed!`;
+          daysRemaining.style.color = '#22c55e';
+          daysRemaining.style.fontWeight = 'bold';
+        }
+      } else if (dueDate < now) {
+        // Assignment is overdue and not completed
         card.classList.add('overdue');
-        
-        // Update the "days left" text to show "OVERDUE"
         const daysRemaining = card.querySelector('.days-remaining');
         if (daysRemaining) {
           const daysOverdue = Math.floor((now - dueDate) / (1000 * 60 * 60 * 24));
@@ -385,9 +384,9 @@ class WhitecliffeStudentHub {
     if (this.assignments.length > 0) {
       const now = new Date();
       
-      // Get ONLY upcoming assignments (ignore overdue)
+      // Get ONLY upcoming assignments (ignore overdue and completed)
       const upcomingOnly = this.assignments
-        .filter(a => new Date(`${a.dueDate}T${a.dueTime}`) > now)
+        .filter(a => new Date(`${a.dueDate}T${a.dueTime}`) > now && a.progress < 100)
         .sort((a, b) => new Date(`${a.dueDate}T${a.dueTime}`) - new Date(`${b.dueDate}T${b.dueTime}`));
 
       if (upcomingOnly.length > 0) {
@@ -412,7 +411,9 @@ class WhitecliffeStudentHub {
         if (countdownMinutes) countdownMinutes.textContent = '∞';
         
         const heroAlert = document.querySelector('.alert-title');
+        const heroTitle = document.querySelector('.alert-assignment');
         if (heroAlert) heroAlert.textContent = 'ALL CAUGHT UP!';
+        if (heroTitle) heroTitle.textContent = 'No upcoming deadlines';
       }
     }
   }
@@ -428,6 +429,7 @@ class WhitecliffeStudentHub {
     grid.innerHTML = sortedAssignments.map(assignment => `
       <div class="assignment-card ${assignment.priority.toLowerCase()}" 
            data-due-iso="${assignment.dueDate}T${assignment.dueTime}" 
+           data-assignment-id="${assignment.id}"
            onclick="hub.showAssignmentDetails('${assignment.id}')">
         <div class="assignment-header">
           <div class="assignment-info">
@@ -628,6 +630,60 @@ class WhitecliffeStudentHub {
     this.updatePomodoroDisplay();
   }
 
+  exportProgressReport() {
+    const assignments = this.assignments.map(a => ({
+      title: a.title,
+      course: a.courseCode,
+      dueDate: a.dueDate,
+      status: a.status,
+      progress: a.progress + '%',
+      priority: a.priority
+    }));
+    
+    const csvContent = [
+      ['Assignment', 'Course', 'Due Date', 'Status', 'Progress', 'Priority'],
+      ...assignments.map(a => [
+        a.title,
+        a.course,
+        a.dueDate,
+        a.status,
+        a.progress,
+        a.priority
+      ])
+    ].map(row => row.join(',')).join('\n');
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `whitecliffe-progress-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    showToast('Export Complete!', 'Progress report downloaded as CSV', 'success');
+  }
+
+  resetAllProgress() {
+    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+      this.assignments.forEach(assignment => {
+        if (assignment.progress < 100) {
+          assignment.progress = 0;
+          assignment.status = 'Not Started';
+        }
+      });
+      
+      // Clear localStorage
+      localStorage.removeItem('canvas_assignments');
+      localStorage.removeItem('canvas_events');
+      
+      // Re-render everything
+      this.renderAssignments();
+      this.updateStats();
+      
+      showToast('Progress Reset', 'All incomplete assignments reset to 0%', 'success');
+    }
+  }
+
   showAssignmentDetails(assignmentId) {
     const assignment = this.assignments.find(a => a.id === assignmentId);
     if (!assignment) return;
@@ -659,10 +715,34 @@ class WhitecliffeStudentHub {
     if (pauseBtn) pauseBtn.addEventListener('click', () => this.pausePomodoro());
     if (resetBtn) resetBtn.addEventListener('click', () => this.resetPomodoro());
 
-    // Canvas sync button (now just refreshes the page)
+    // Export Progress button - downloads actual CSV report
+    const exportBtn = document.getElementById('exportBtn');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => this.exportProgressReport());
+    }
+
+    // Print Schedule button - enhanced print with notification
+    const printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', () => {
+        showToast('Preparing Print...', 'Opening print dialog', 'success');
+        setTimeout(() => window.print(), 500);
+      });
+    }
+
+    // Sync button - refreshes with proper message
     const syncBtn = document.getElementById('syncCanvasBtn');
     if (syncBtn) {
-      syncBtn.addEventListener('click', () => location.reload());
+      syncBtn.addEventListener('click', () => {
+        showToast('Refreshing Hub...', 'Reloading latest data', 'success');
+        setTimeout(() => location.reload(), 1000);
+      });
+    }
+
+    // Reset Progress button - resets all progress to 0%
+    const resetProgressBtn = document.getElementById('resetBtn');
+    if (resetProgressBtn) {
+      resetProgressBtn.addEventListener('click', () => this.resetAllProgress());
     }
 
     // Modal events
@@ -674,20 +754,6 @@ class WhitecliffeStudentHub {
     }
     if (modalOverlay) {
       modalOverlay.addEventListener('click', () => modal.classList.add('hidden'));
-    }
-
-    // Action buttons
-    const exportBtn = document.getElementById('exportBtn');
-    const printBtn = document.getElementById('printBtn');
-    if (exportBtn) {
-      exportBtn.addEventListener('click', () => {
-        showToast('Export Started', 'Generating your progress report...', 'success');
-      });
-    }
-    if (printBtn) {
-      printBtn.addEventListener('click', () => {
-        window.print();
-      });
     }
   }
 }
