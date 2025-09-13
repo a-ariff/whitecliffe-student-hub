@@ -1,0 +1,60 @@
+{
+  "framework": "static",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "installCommand": null,
+  "redirects": [
+    {
+      "source": "/figma-site",
+      "destination": "https://example-figma-make-url.com",
+      "permanent": false
+    },
+    {
+      "source": "/syllabisync",
+      "destination": "https://example-figma-make-url.com",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "app.js": {
+      "maxDuration": 30
+    }
+  },
+  "regions": ["syd1"],
+  "env": {
+    "SUPABASE_URL": "@supabase-url",
+    "SUPABASE_ANON_KEY": "@supabase-anon-key",
+    "GA_ID": "@ga-id"
+  }
+}
