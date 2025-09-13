@@ -1,0 +1,84 @@
+name: Release Deployment
+
+# Trigger on release published
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Trigger Vercel Deploy Hook
+        run: |
+          DEPLOY_RESPONSE=$(curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "main", "sha": "${{ github.sha }}"}' \
+            -w "%{http_code}" \
+            -s -o deploy_response.json)
+          
+          echo "Deploy hook response code: $DEPLOY_RESPONSE"
+          
+          if [ "$DEPLOY_RESPONSE" -eq 200 ] || [ "$DEPLOY_RESPONSE" -eq 201 ]; then
+            echo "✅ Vercel deployment triggered successfully"
+            cat deploy_response.json
+          else
+            echo "❌ Failed to trigger Vercel deployment"
+            cat deploy_response.json
+            exit 1
+          fi
+          
+      - name: Wait for Deployment
+        run: |
+          echo "⏳ Waiting for deployment to complete..."
+          sleep 30
+          
+      - name: Update Release with Deployment URL
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_ID: ${{ github.event.release.id }}
+        run: |
+          # Extract deployment URL from Vercel response if available
+          DEPLOYMENT_URL="https://whitecliffe-student-hub.vercel.app"
+          
+          # Get current release body
+          CURRENT_BODY=$(curl -s \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}" \
+            | jq -r '.body')
+          
+          # Append deployment information to release body
+          NEW_BODY="$CURRENT_BODY
+          
+          ---
+          
+          ## 🚀 Deployment Information
+          
+          **Live Demo:** [$DEPLOYMENT_URL]($DEPLOYMENT_URL)
+          
+          **Deployed:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')
+          **Commit:** ${{ github.sha }}
+          **Workflow:** [${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          
+          ### 🛠️ Technical Details
+          - **Platform:** Vercel
+          - **Framework:** Static
+          - **Environment:** Production
+          - **Status:** ✅ Successfully Deployed"
+          
+          # Update the release with new body
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Content-Type: application/json" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}" \
+            -d "$(echo "$NEW_BODY" | jq -Rs '{body: .}')"
+          
+          echo "✅ Release updated with deployment information"
+          echo "🌐 Deployment URL: $DEPLOYMENT_URL"
