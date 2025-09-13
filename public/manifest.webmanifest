@@ -1,0 +1,130 @@
+{
+  "name": "Whitecliffe Student Hub",
+  "short_name": "WhitecliffHub",
+  "description": "The ultimate homepage for Whitecliffe College students - assignment tracking, study tools, and daily motivation!",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "categories": ["education", "productivity", "lifestyle"],
+  "lang": "en",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "./icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./screenshots/desktop-screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Desktop view of Whitecliffe Student Hub showing assignment tracker and study tools"
+    },
+    {
+      "src": "./screenshots/mobile-screenshot.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile view of Whitecliffe Student Hub with responsive design"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Assignment Tracker",
+      "short_name": "Assignments",
+      "description": "View and manage your assignments",
+      "url": "/#assignments",
+      "icons": [
+        {
+          "src": "./icons/assignments-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Pomodoro Timer",
+      "short_name": "Timer",
+      "description": "Start a focused study session",
+      "url": "/#pomodoro",
+      "icons": [
+        {
+          "src": "./icons/timer-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Canvas LMS",
+      "short_name": "Canvas",
+      "description": "Quick access to Canvas",
+      "url": "https://whitecliffe.instructure.com/",
+      "icons": [
+        {
+          "src": "./icons/canvas-icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+whitecliffehub",
+      "url": "/?action=%s"
+    }
+  ]
+}
